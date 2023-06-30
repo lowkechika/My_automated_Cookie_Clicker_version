@@ -49,6 +49,9 @@ next_2 = driver.find_element(By.XPATH, "//div[@id='product4']")
 
 # zi loop. more below. so things don't make sense , ie locked printing... it kind of does though
 timer = 0
+farm_cost = 0
+next_1_cost = 0
+next_2_cost = 0
 while True:
     cursor = driver.find_element(By.XPATH, '//*[@id="product0"]')
     current_cookies = driver.find_element(By.XPATH, '//*[@id="cookies"]')
@@ -57,33 +60,36 @@ while True:
     timer += 1
     product_list = []
     for x in store[1:4]:
-        print(x.text)
+        # print(x.text)
         product = x.text.split()
         product_list.append(product)
 
-        if '???' in product:
-            print("locked")
+        # if '???' in product:
+        #     print("locked")
 
     print(f"Number of cookies: {cookies_count}")
     cursor_cost = int(product_list[0][1].replace(",", ""))
     granny_cost = int(product_list[1][1].replace(",", ""))
-    if len(product_list) > 3:
-        farm_cost = int(product_list[2][1].replace(",", ""))
-        if farm_cost <= cookies_count < 12000:
-            farm.click()
-    elif len(product_list) > 4:
-        next_1_cost = int(product_list[3][1].replace(",", ""))
-        if next_1_cost <= cookies_count < 130000:
-            next_1.click()
-    elif len(product_list) > 5:
-        next_2_cost = int(product_list[4][1].replace(",", ""))
-        if next_2_cost <= cookies_count > 130000:
-            next_2.click()
 
     if cursor_cost <= cookies_count < 100:
         cursor.click()
     elif granny_cost <= cookies_count < 1100:
         granny.click()
+
+    if granny_cost > 1100:
+        farm_cost = int(product_list[2][1].replace(",", ""))
+        if farm_cost <= cookies_count < 12000:
+            farm.click()
+
+    elif farm_cost > 12000:
+        next_1_cost = int(product_list[3][1].replace(",", ""))
+        if next_1_cost <= cookies_count < 130000:
+            next_1.click()
+            
+    elif next_1_cost > 130000:
+        next_2_cost = int(product_list[4][1].replace(",", ""))
+        if next_2_cost <= cookies_count > 130000:
+            next_2.click()
 
 # Make sure you open in full screen or else you'll have click problems. Trust me. It took me a while to figure
 # this out
