@@ -67,15 +67,15 @@ while True:
     print(f"Number of cookies: {cookies_count}")
     cursor_cost = int(product_list[0][1].replace(",", ""))
     granny_cost = int(product_list[1][1].replace(",", ""))
-    if len(product_list) > 2:
+    if len(product_list) > 3:
         farm_cost = int(product_list[2][1].replace(",", ""))
         if farm_cost <= cookies_count < 12000:
             farm.click()
-    elif len(product_list) > 3:
+    elif len(product_list) > 4:
         next_1_cost = int(product_list[3][1].replace(",", ""))
         if next_1_cost <= cookies_count < 130000:
             next_1.click()
-    elif len(product_list) > 4:
+    elif len(product_list) > 5:
         next_2_cost = int(product_list[4][1].replace(",", ""))
         if next_2_cost <= cookies_count > 130000:
             next_2.click()
