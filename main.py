@@ -44,6 +44,8 @@ store = driver.find_elements(By.XPATH, '/html/body/div[2]/div[2]/div[19]/div[3]/
 cursor = driver.find_element(By.XPATH, "//div[@id='product0']")
 granny = driver.find_element(By.XPATH, "//div[@id='product1']")
 farm = driver.find_element(By.XPATH, "//div[@id='product2']")
+next_1 = driver.find_element(By.XPATH, "//div[@id='product3']")
+next_2 = driver.find_element(By.XPATH, "//div[@id='product4']")
 
 # zi loop. more below. so things don't make sense , ie locked printing... it kind of does though
 timer = 0
@@ -54,7 +56,8 @@ while True:
     cookie.click()
     timer += 1
     product_list = []
-    for x in store[1:5]:
+    for x in store[1:4]:
+        print(x.text)
         product = x.text.split()
         product_list.append(product)
 
@@ -64,12 +67,18 @@ while True:
     print(f"Number of cookies: {cookies_count}")
     cursor_cost = int(product_list[0][1].replace(",", ""))
     granny_cost = int(product_list[1][1].replace(",", ""))
-    if len(product_list) > 5:
+    if len(product_list) > 2:
         farm_cost = int(product_list[2][1].replace(",", ""))
-        next_1 = int(product_list[3][1].replace(",", ""))
-        next_2 = int(product_list[4][1].replace(",", ""))
-        if farm_cost <= cookies_count < 2000:
+        if farm_cost <= cookies_count < 12000:
             farm.click()
+    elif len(product_list) > 3:
+        next_1_cost = int(product_list[3][1].replace(",", ""))
+        if next_1_cost <= cookies_count < 130000:
+            next_1.click()
+    elif len(product_list) > 4:
+        next_2_cost = int(product_list[4][1].replace(",", ""))
+        if next_2_cost <= cookies_count > 130000:
+            next_2.click()
 
     if cursor_cost <= cookies_count < 100:
         cursor.click()
